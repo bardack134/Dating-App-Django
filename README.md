@@ -1,2 +1,2 @@
-# Dating-App-Djangpo
+# Dating-App-Django
 writing
