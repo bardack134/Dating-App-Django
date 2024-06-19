@@ -86,8 +86,11 @@
                             </div>
                         </form>
                     </div>
-                    <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-                        <form>
+
+                    <!-- register form -->
+                    <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register" >
+                        <form method="post"  action="{% url 'register' %}">
+                            {% csrf_token %}
                             <div class="text-center mb-3">
                                 <p>Sign up with:</p>
                                 <button type="button" class="btn btn-link btn-floating mx-1 white_color">
@@ -111,7 +114,7 @@
 
                             <!-- Name input -->
                             <div class="form-outline mb-4">
-                                <input type="text" id="registerName" class="form-control" />
+                                <input type="text" id="registerName" class="form-control " name="name" />
                                 <label class="form-label" for="registerName">Name</label>
                             </div>
 
@@ -154,6 +157,10 @@
                         </form>
                     </div>
                 </div>
-                <!-- Pills content -->
+            </div>
+        </div>
+    </div>
+    <!-- Pills content -->
+</header>
 
-                {% endblock %}
+{% endblock %}
