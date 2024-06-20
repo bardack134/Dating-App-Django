@@ -4,6 +4,8 @@
 
 {% block content %}
 
+
+
 <!-- Header-->
 <header class="masthead text-center text-white pb-0">
     <div class="container">
@@ -22,7 +24,15 @@
                     </li>
                 </ul>
                 <!-- Pills navs -->
-
+                {% if messages %}
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        {% for message in messages %}
+                        <li>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
                 <!-- Pills content -->
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
@@ -86,10 +96,12 @@
                             </div>
                         </form>
                     </div>
+                    <!-- Display error/success messages -->
+                   
 
                     <!-- register form -->
-                    <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register" >
-                        <form method="post"  action="{% url 'register' %}">
+                    <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
+                        <form method="post" action="{% url 'register' %}">
                             {% csrf_token %}
                             <div class="text-center mb-3">
                                 <p>Sign up with:</p>
@@ -120,25 +132,26 @@
 
                             <!-- Username input -->
                             <div class="form-outline mb-4">
-                                <input type="text" id="registerUsername" class="form-control" />
+                                <input type="text" id="registerUsername" class="form-control" name="username" />
                                 <label class="form-label" for="registerUsername">Username</label>
                             </div>
 
                             <!-- Email input -->
                             <div class="form-outline mb-4">
-                                <input type="email" id="registerEmail" class="form-control" />
+                                <input type="email" id="registerEmail" class="form-control" name="email" />
                                 <label class="form-label" for="registerEmail">Email</label>
                             </div>
 
                             <!-- Password input -->
                             <div data-mdb-input-init class="form-outline mb-4">
-                                <input type="password" id="registerPassword" class="form-control" />
+                                <input type="password" id="registerPassword" class="form-control" name="password1" />
                                 <label class=" form-label" for="registerPassword">Password</label>
                             </div>
 
                             <!-- Repeat Password input -->
                             <div data-mdb-input-init class="form-outline mb-4">
-                                <input type="password" id="registerRepeatPassword" class="form-control" />
+                                <input type="password" id="registerRepeatPassword" class="form-control"
+                                    name="password2" />
                                 <label class=" form-label" for="registerRepeatPassword">Repeat password</label>
                             </div>
 
