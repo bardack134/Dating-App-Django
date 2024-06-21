@@ -23,7 +23,8 @@
                             aria-selected="false">Register</a>
                     </li>
                 </ul>
-                <!-- Pills navs -->
+                
+                <!-- error messages, etc.. -->
                 {% if messages %}
                 <div class="alert alert-danger" role="alert">
                     <ul>
@@ -33,6 +34,8 @@
                     </ul>
                 </div>
                 {% endif %}
+
+
                 <!-- Pills content -->
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
@@ -101,7 +104,7 @@
 
                     <!-- register form -->
                     <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
-                        <form method="post" action="{% url 'register' %}">
+                        <form method="post" action="{% url 'autentication:register' %}">
                             {% csrf_token %}
                             <div class="text-center mb-3">
                                 <p>Sign up with:</p>
