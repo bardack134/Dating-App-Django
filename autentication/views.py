@@ -3,6 +3,12 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
+from .forms import RegisterForm
+from django.views.generic import View
+
+# AuthenticationForm is a class used to create a login form in a web application.
+from django.contrib.auth.forms import  AuthenticationForm
+
 
 # Create your views here.
 def register(request):
@@ -75,8 +81,9 @@ def register(request):
 
                     
                     # Display an information message
-                    messages.success(request, 'Registration successful. You are now logged in.')
+                    messages.success(request, f'Registration successful, Welcome {username}')
                     
+
                     # Redirect for now to the home page
                     return redirect('homepage:home')
 
@@ -108,12 +115,92 @@ def register(request):
             
             return redirect('autentication:register')
             
-            
-        return render(request, "login.html")
     
     else:
         return render(request, "login.html")
 
 
+#NOTE: another way to do it
+# def register(request):
+#     if request.method == 'POST':
+#         form = RegisterForm(request.POST)
+#         if form.is_valid():
+#             user = form.save(commit=False)
+#             user.email = form.cleaned_data['email']
+#             user.first_name = form.cleaned_data['fullname']
+#             user.save()
+            
+#             # Authenticate and log the user in
+#             username = form.cleaned_data['username']
+#             password = form.cleaned_data['password1']
+#             user = authenticate(username=username, password=password)
+            
+#             if user is not None:
+#                 login(request, user)
+#                 messages.success(request, 'Registration successful. You are now logged in.')
+#                 return redirect('home')
+#         else:
+#             for field, errors in form.errors.items():
+#                 for error in errors:
+#                     messages.error(request, f"{field}: {error}")
+#     else:
+#         form = RegisterForm()
+    
+#     return render(request, 'register.html', {'form': form})
 
-#TODO:
+
+class LoginView(View):  
+
+    
+    def get(self, request):  
+    
+        
+        form = AuthenticationForm() 
+
+        
+        context = {'form': form}  
+
+        
+        return render(request, 'login2.html', context)  
+
+    
+    def post(self, request):  
+
+        
+        form = AuthenticationForm(request, data=request.POST)  
+
+        
+        if form.is_valid():  
+          
+            username = form.cleaned_data.get("username")  
+
+           
+            password = form.cleaned_data.get("password") 
+
+           
+            user = authenticate(username=username, password=password) 
+
+            if user is not None:  
+
+                login(request, user) 
+
+                #while creating the user profile form I redirect to the home page
+                return redirect('homepage:home')
+
+            
+            else:  
+
+                messages.error(request, "invalid username or password")
+                
+                return redirect('autentication:login')
+             
+        
+        else:  
+            messages.error(request, "You have entered an invalid username or password")
+            
+            return redirect('autentication:login')
+        
+        
+        #
+        
+        

@@ -23,7 +23,7 @@
                             aria-selected="false">Register</a>
                     </li>
                 </ul>
-                
+
                 <!-- error messages, etc.. -->
                 {% if messages %}
                 <div class="alert alert-danger" role="alert">
@@ -39,7 +39,8 @@
                 <!-- Pills content -->
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-                        <form>
+                        <form method="post" action="{% url 'autentication:login' %}">
+                            {% csrf_token %}
                             <div class="text-center mb-3">
                                 <p>Sign in with:</p>
                                 <button type="button" class="white_color btn btn-link btn-floating mx-1">
@@ -61,19 +62,36 @@
 
                             <p class="text-center">or:</p>
 
+
+                            <!-- I want to keep the customization of Bootstrap input fields while using the values ​​and validations provided by Django. To do this I manually render the form fields -->
+
                             <!-- Email input -->
                             <div class="form-outline mb-4">
-                                <input type="email" id="loginName" class="form-control" />
-                                <label class="form-label" for="loginName">Email or username</label>
+                                <input type="text" id="loginName" class="form-control" name="username"
+                                    value="{{ form.username.value }} " />
+
+                                <label class="form-label" for="loginName">username</label>
+
+                                <!-- Display field errors -->
+                                {% for error in form.username.errors %}
+                                    <div class="text-warning">{{ error }}</div>
+                                {% endfor %}
                             </div>
 
                             <!-- Password input -->
-                            <div class="form-outline mb-4">
-                                <input type="password" id="loginPassword" class="form-control" />
+                            <div class="form-outline mb-4 ">
+                                <input type="password" id="loginPassword" class="form-control" name="password"
+                                    value="{{ form.password.value }} " />
+
                                 <label class="form-label" for="loginPassword">Password</label>
+
+                                <!-- Display field errors -->
+                                {% for error in form.password.errors %}
+                                    <div class="text-warning">{{ error }}</div>
+                                {% endfor %}
                             </div>
 
-                            <!-- 2 column grid layout -->
+                             <!-- Remember me checkbox and forgot password link -->
                             <div class="row mb-4">
                                 <div class="col-md-6 d-flex justify-content-center">
                                     <!-- Checkbox -->
@@ -100,7 +118,7 @@
                         </form>
                     </div>
                     <!-- Display error/success messages -->
-                   
+
 
                     <!-- register form -->
                     <div class="tab-pane fade" id="pills-register" role="tabpanel" aria-labelledby="tab-register">
@@ -130,7 +148,7 @@
                             <!-- Name input -->
                             <div class="form-outline mb-4">
                                 <input type="text" id="registerName" class="form-control " name="name" />
-                                
+
                                 <label class="form-label" for="registerName">Name</label>
                             </div>
 
