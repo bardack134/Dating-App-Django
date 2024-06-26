@@ -1,3 +1,4 @@
+import pprint
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -149,58 +150,64 @@ def register(request):
 #     return render(request, 'register.html', {'form': form})
 
 
-class LoginView(View):  
+class LoginView(View):
 
-    
-    def get(self, request):  
-    
+    # Handle GET requests
+    def get(self, request):
         
-        form = AuthenticationForm() 
+        # Create an instance of the authentication form
+        form = AuthenticationForm()
+
+        # Create the context dictionary with the form
+        context = {'form': form}
+
+        # Render the login page with the context
+        return render(request, 'login.html', context)
+
+    # Handle POST requests
+    def post(self, request):
+        
+        # Create an instance of the authentication form with posted data
+        form = AuthenticationForm(request, data=request.POST)
 
         
-        context = {'form': form}  
-
-        
-        return render(request, 'login2.html', context)  
-
-    
-    def post(self, request):  
-
-        
-        form = AuthenticationForm(request, data=request.POST)  
-
-        
-        if form.is_valid():  
-          
-            username = form.cleaned_data.get("username")  
-
-           
-            password = form.cleaned_data.get("password") 
-
-           
-            user = authenticate(username=username, password=password) 
-
-            if user is not None:  
-
-                login(request, user) 
-
-                #while creating the user profile form I redirect to the home page
-                return redirect('homepage:home')
-
+        # Verifies that all required fields are present and meet the specific validation requirements for each field
+        # (for example, that an email address is in the correct format).
+        if form.is_valid():
             
-            else:  
+            # Get the cleaned username from the form data
+            username = form.cleaned_data.get("username")
 
-                messages.error(request, "invalid username or password")
+            # Get the cleaned password from the form data
+            password = form.cleaned_data.get("password")
+
+            # Authenticate the user with the provided credentials
+            user = authenticate(username=username, password=password)
+
+            # If the user is authenticated successfully
+            if user is not None:
                 
-                return redirect('autentication:login')
-             
-        
-        else:  
-            messages.error(request, "You have entered an invalid username or password")
+                # Log the user in
+                login(request, user)
+
+                # Redirect to the homepage after successful login
+                return redirect('homepage:home')
             
-            return redirect('autentication:login')
-        
-        
-        #
-        
-        
+            else:
+                
+                # If authentication fails, show an error message
+                messages.error(request, "Invalid username or password")
+
+                # Redirect back to the login page
+                return redirect('autentication:login')
+            
+        else:
+            # If there are errors, is_valid() will add these errors to an attribute called errors on the form.
+            # For debugging purposes, print form errors
+            pprint.pp(form.errors)
+
+            # Create the context dictionary with the form
+            context = {'form': form}
+
+            # Re-render the login page with the form and errors
+            return render(request, 'login.html', context)
