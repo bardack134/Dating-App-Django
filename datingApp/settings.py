@@ -133,3 +133,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static",
     "/var/www/static/",
 ]
+
+
+# redirection after logout.
+LOGOUT_REDIRECT_URL = "homepage:home"

@@ -10,6 +10,13 @@ from django.views.generic import View
 # AuthenticationForm is a class used to create a login form in a web application.
 from django.contrib.auth.forms import  AuthenticationForm
 
+# This decorator is used to restrict access to a view to only authenticated users.
+from django.contrib.auth.decorators import login_required
+
+# This utility is used to apply function-based decorators, like login_required, 
+# to methods within class-based views (CBVs).
+from django.utils.decorators import method_decorator
+
 
 # Create your views here.
 def register(request):
@@ -121,7 +128,7 @@ def register(request):
         return render(request, "login.html")
 
 
-#NOTE: another way to do it
+#NOTE: another way to do register view
 # def register(request):
 #     if request.method == 'POST':
 #         form = RegisterForm(request.POST)
@@ -211,3 +218,59 @@ class LoginView(View):
 
             # Re-render the login page with the form and errors
             return render(request, 'login.html', context)
+
+
+#TODO: CREATE USER PROFILE FORM, PROFILE MODEL IN ANOTHER APP
+
+#@login_required(login_url='/autenticacion/login/')
+@method_decorator(login_required, name='dispatch')
+class RegisterPatientSP(View):
+
+    # Método GET para mostrar o crear el formulario de registro.
+    def get(self, request):
+
+        pass
+        # # Creamos una instancia del formulario personalizado.
+        # form = PatientInformationFormSP()
+
+        # # Preparamos los datos del formulario para pasar al contexto.
+        # context = {
+        #     'formSP': form 
+        # }
+
+        # # Mostramos la página de registro con el formulario.
+        # return render(request, 'registro/registro.html', context) 
+
+
+    def post(self, request):
+        
+        pass
+        # # Creamos una instancia del formulario con los datos del POST.
+        # form = PatientInformationFormSP(request.POST)  
+
+        # # Verificamos si los datos ingresados en el formulario son válidos.
+        # if form.is_valid():
+
+          
+        #     """
+        #     #para que el usuario logee automaticamente
+        #     usuario=form.save()
+        #     login(request, usuario)
+        #     """
+        #     # Guarda el formulario en la base de datos
+        #     patient = form.save()  # Esto guarda los datos en la base de datos y devuelve el objeto creado
+
+
+        #     # Mostramos un mensaje de éxito.
+        #     messages.success(request, 'Paciente registrado exitosamente.')  
+
+        #     # Redirige a la misma vista de registro
+        #     return redirect('RegistroPaciente')  
+
+        # context = {
+        #     # Preparamos los datos del formulario (incluso si no es válido) para pasar al contexto.
+        #     'form': form  
+        # }
+
+        # #Mostramos la página de registro con el formulario y posibles errores.
+        # return render(request, 'registro/registro.html', context)  
