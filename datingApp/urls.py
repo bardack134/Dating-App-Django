@@ -24,5 +24,6 @@ urlpatterns = [
     
     path('autentication/', include("autentication.urls")),
     path('', include("home.urls")),
+    path('user/', include("user.urls")),
 ]
 urlpatterns += staticfiles_urlpatterns()
