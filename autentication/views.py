@@ -220,7 +220,7 @@ class LoginView(View):
             return render(request, 'login.html', context)
 
 
-#TODO: CREATE USER PROFILE FORM, PROFILE MODEL IN ANOTHER APP
+
 
 #@login_required(login_url='/autenticacion/login/')
 @method_decorator(login_required, name='dispatch')
