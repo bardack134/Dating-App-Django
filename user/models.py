@@ -73,7 +73,9 @@ class Profile(models.Model):
     relationship_status = models.CharField(choices=RELATIONSHIP_STATUS, default="NEVER MARRIED", blank=False,  max_length=50)
     
     
-    location = models.CharField(max_length=100, default='', blank=False)
+    country = models.CharField(max_length=100, default='', blank=False)
+    
+    city = models.CharField(max_length=100, default='', blank=False)
     
     # Fields for geographic coordinates
     citylat = models.DecimalField(max_digits=9, decimal_places=6, default='43.06667')

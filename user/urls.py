@@ -21,6 +21,7 @@ urlpatterns = [
     
    
 ]
+
 #TODO: create the templates for the new profile views
 
 if settings.DEBUG:

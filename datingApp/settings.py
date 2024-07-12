@@ -144,3 +144,8 @@ LOGOUT_REDIRECT_URL = "homepage:home"
 #is used to be able to work with images in our project, media is the folder where our images will be saved
 MEDIA_ROOT =  os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+# If the user tries to access the profile creation views /user/profile/new without having logged in.
+# they will be redirected to this page
+LOGIN_URL="autentication:login"
+LOGIN_REDIRECT_URL="autentication:login"

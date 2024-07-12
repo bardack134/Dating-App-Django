@@ -8,7 +8,7 @@ from .models import Profile
 class ProfileAdmin(admin.ModelAdmin):  
     
     # Display fields in the admin view
-    list_display = ("user", "gender", "relationship_status", "location")  
+    list_display = ("user", "gender", "relationship_status", "country")  
     
 
 
