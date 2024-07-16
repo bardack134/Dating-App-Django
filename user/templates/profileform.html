@@ -4,6 +4,7 @@
 
 {% block content %}
 
+{%load crispy_forms_tags %} 
 
 
 <!-- Header-->
@@ -11,63 +12,17 @@
     <div class="container">
         <div class="masthead-content container px-5">
             <div class="row flex-lg-row-reverse align-items-center g-5">
+
+                <!-- register form -->
+                <form method="post" action="{% url 'user:profile_create' %}">
+                    {{ form|crispy }}
+                </form>
                 
-                    <!-- register form -->
-                    
-                    <form method="post" action="{% url 'user:profile_create' %}">
-                        {% csrf_token %}
-                        
-                        <!-- Biography input -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="biography">Biography</label>
-                            <input type="text" id="biography" class="form-control" name="biography" value="{{ form.biography.value|default_if_none:user.profile.biography }}" />
-                        </div>
-                    
-                        <!-- Gender input -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="gender">Gender</label>
-                            <input type="text" id="gender" class="form-control" name="gender" value="{{ form.gender.value|default_if_none:user.profile.gender }}" />
-                        </div>
-                    
-                        <!-- Relationship Status input -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="relationship_status">Relationship Status</label>
-                            <input type="text" id="relationship_status" class="form-control" name="relationship_status" value="{{ form.relationship_status.value|default_if_none:user.profile.relationship_status }}" />
-                        </div>
-                    
-                        <!-- country input -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="country">Country</label>
-                            <input type="text" id="country" class="form-control" name="country" value="{{ form.country.value|default_if_none:user.profile.country }}" />
-                        </div>
-                    
-                        <!-- City input -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="city">City</label>
-                            <input type="text" id="city" class="form-control" name="city" value="{{ form.city.value|default_if_none:user.profile.city }}" />
-                        </div>
-                    
-                                            
-                        <!-- Birth Date input -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="birth_date">Birth Date</label>
-                            <input type="date" id="birth_date" class="form-control" name="birth_date" value="{{ form.birth_date.value|default_if_none:user.profile.birth_date }}" />
-                        </div>
-                    
-                        <!-- Image input -->
-                        <div class="form-outline mb-4">
-                            <label class="form-label" for="image">Profile Image</label>
-                            <input type="file" id="image" class="form-control" name="image" />
-                        </div>
-                    
-                        <!-- Submit button -->
-                        <button type="submit" class="btn btn-primary btn-block mb-3">Save Profile</button>
-                    </form>
-                    
-                    
-                </div>
+
+
             </div>
         </div>
+    </div>
     </div>
     <!-- Pills content -->
 </header>

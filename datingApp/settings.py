@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'home',
     'autentication',
     'user',
+    'crispy_forms',
     
 ]
 
@@ -149,3 +150,6 @@ MEDIA_URL = '/media/'
 # they will be redirected to this page
 LOGIN_URL="autentication:login"
 LOGIN_REDIRECT_URL="autentication:login"
+
+# working with crispy forms
+CRISPY_TEMPLATE_PACK = 'uni_form'
